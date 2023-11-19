@@ -14,6 +14,7 @@ app.use(
     secret: "complex-secret-key",
     resave: false,
     saveUninitialized: true,
+    
   })
 );
 
@@ -38,10 +39,11 @@ const routes = require("./routes/routes");
 app.use("/", routes);
 
 // Calculate average classes route
+// Calculate average classes route
 app.get("/calculate-average", async (req, res) => {
   try {
     const User = require("./path/to/users.js"); // Replace with the actual path
-    const users = await User.find();
+    const users = await User.find().timeout(10000); // Add timeout here
 
     // Calculate the total number of teachers and sum of classes
     const totalTeachers = users.length;
@@ -53,10 +55,11 @@ app.get("/calculate-average", async (req, res) => {
 
     res.redirect("/"); // Redirect to the home page or user listing page
   } catch (err) {
-    console.error("Error in /calculate-average route:", err);
+    console.error(err);
     res.status(500).send("Internal Server Error");
   }
 });
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
