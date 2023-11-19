@@ -37,25 +37,25 @@ const routes = require("./routes/routes");
 app.use("/", routes);
 
 // Calculate average classes route
-app.get("/calculate-average", async (req, res) => {
-  try {
-    const User = require("./path/to/users.js"); // Replace with the actual path
-    const users = await User.find();
+// app.get("/calculate-average", async (req, res) => {
+//   try {
+//     const User = require("./path/to/users.js"); // Replace with the actual path
+//     const users = await User.find();
 
-    // Calculate the total number of teachers and sum of classes
-    const totalTeachers = users.length;
-    const totalClasses = users.reduce((sum, user) => sum + user.noclass, 0);
-    const averageClasses = totalTeachers > 0 ? totalClasses / totalTeachers : 0;
+//     // Calculate the total number of teachers and sum of classes
+//     const totalTeachers = users.length;
+//     const totalClasses = users.reduce((sum, user) => sum + user.noclass, 0);
+//     const averageClasses = totalTeachers > 0 ? totalClasses / totalTeachers : 0;
 
-    // Update averageClasses for all users in a single query
-    await User.updateMany({}, { $set: { averageClasses: averageClasses } });
+//     // Update averageClasses for all users in a single query
+//     await User.updateMany({}, { $set: { averageClasses: averageClasses } });
 
-    res.redirect("/"); // Redirect to the home page or user listing page
-  } catch (err) {
-    console.error("Error in /calculate-average route:", err);
-    res.status(500).send("Internal Server Error");
-  }
-});
+//     res.redirect("/"); // Redirect to the home page or user listing page
+//   } catch (err) {
+//     console.error("Error in /calculate-average route:", err);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
 // Error handling middleware
 app.use((err, req, res, next) => {

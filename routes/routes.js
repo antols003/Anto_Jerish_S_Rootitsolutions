@@ -129,45 +129,45 @@ router.post("/update/:id", upload, async (req, res) => {
 // ... (your existing routes)
 
 // Calculate average route
-router.get("/calculateAverage", async (req, res) => {
-  try {
-    const client = new MongoClient('mongodb://your-mongodb-connection-string', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+// router.get("/calculateAverage", async (req, res) => {
+//   try {
+//     const client = new MongoClient('mongodb://your-mongodb-connection-string', {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true
+//     });
 
-    await client.connect();
-    const database = client.db('your-database-name');
-    const usersCollection = database.collection('users');
+//     await client.connect();
+//     const database = client.db('your-database-name');
+//     const usersCollection = database.collection('users');
 
-    const result = await usersCollection.aggregate([
-      {
-        $group: {
-          _id: null,
-          totalClasses: { $sum: '$noclass' },
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          averageClasses: { $divide: ['$totalClasses', '$count'] },
-        },
-      },
-    ]).toArray();
+//     const result = await usersCollection.aggregate([
+//       {
+//         $group: {
+//           _id: null,
+//           totalClasses: { $sum: '$noclass' },
+//           count: { $sum: 1 },
+//         },
+//       },
+//       {
+//         $project: {
+//           _id: 0,
+//           averageClasses: { $divide: ['$totalClasses', '$count'] },
+//         },
+//       },
+//     ]).toArray();
 
-    const averageClasses = result[0].averageClasses;
+//     const averageClasses = result[0].averageClasses;
 
-    res.render('average', { averageClasses });
-  } catch (error) {
-    console.error('Error calculating average:', error);
-    res.status(500).send('Internal Server Error');
-  } finally {
-    client.close();
-  }
-});
+//     res.render('average', { averageClasses });
+//   } catch (error) {
+//     console.error('Error calculating average:', error);
+//     res.status(500).send('Internal Server Error');
+//   } finally {
+//     client.close();
+//   }
+// });
 
-module.exports = router;
+
 // Calculate average classes route
 // Calculate average classes route
 app.get("/calculate-average", async (req, res) => {
