@@ -1,0 +1,37 @@
+<%- include('layout/header') %>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Add New User</h2>
+        <form action="/add" method="post" id="add-form" enctype="multipart/form-data" class="custom-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control custom-input" id="name" placeholder="Enter name"
+                    required pattern="[A-Za-z\s]+" title="Please enter a valid name (letters only)">
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" name="age" class="form-control custom-input" id="age" placeholder="Enter age"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of birth</label>
+                <input type="date" name="dob" class="form-control custom-input" id="dob" placeholder="Enter dob"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="noclass">Number of classes taken</label>
+                <input type="number" name="noclass" class="form-control custom-input" id="noclass" placeholder="Enter number of classes taken"
+                    required>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Select Image</label>
+                <input type="file" name="image" class="form-control-file custom-file-input" id="image" required>
+            </div>
+            <button type="submit" class="btn btn-primary custom-button">Add User</button>
+        </div>
+        </form>
+    </div>
+
+
+    <%- include('layout/footer') %>

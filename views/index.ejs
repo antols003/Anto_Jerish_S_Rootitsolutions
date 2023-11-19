@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Title Goes Here</title>
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+        integrity="sha512-t4GWSVZO1eC8BM339Xd7Uphw5s17a86tIZIj8qRxhnKub6WoyhnrxeCIMeAqBPgdZGlCcG2PrZjMc+Wr78+5Xg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Your custom styles -->
+    <style>
+        /* Add animation to the table */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add shadow effect to the table */
+        .table-responsive {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background: linear-gradient(to right, #ece9e6, #ffffff);
+        }
+
+        /* Style the table headers */
+        table.table thead th {
+            background-color: #3498db;
+            color: white;
+            border: none;
+        }
+
+        /* Style the table rows */
+        table.table tbody tr {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #d1d1d1;
+        }
+
+        /* Style the action icons */
+        .action-icons a {
+            color: #3498db;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .action-icons a:hover {
+            color: #2176bd;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Include your header file -->
+    <%- include('layout/header') %>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <% if (message) { %>
+                    <div class="alert alert-dismissible fade show alert-<%= message.type %>" role="alert">
+                        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong><%= message.message %></strong>
+                    </div>
+                <% } %>
+                <div class="table-responsive mx-4 animate__animated animate__fadeInUp">
+                    <% if (users != '') { %>
+                        
+                        <table id="dataTable" class="table table-bordered table-striped mx-4 text-center">
+                            <thead>
+                                <tr class="table-dark">
+                                    <th>ID</th>
+                                    <th>Images</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>DOB</th>
+                                    <th>Number of Classes</th>
+                                    <th>Average Classes</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach((row, index) => { %>
+                                    <tr>
+                                        <td><%= index %></td>
+                                        <td><img src="<%= row.image %>" width="80" class="img-thumbnail" /></td>
+                                        <td><%= row.name %></td>
+                                        <td><%= row.age %></td>
+                                        <td><%= row.dob %></td>
+                                        <td><%= row.noclass %></td>
+                                        <td><%= row.averageClasses.toFixed(2) %></td>
+                                        <td class="action-icons">
+                                            <a href="/edit/<%= row._id %>"><i class="fas fa-edit fa-lg mx-1"></i></a>
+                                            <a href="/delete/<%= row._id %>"><i class="fas fa-trash fa-lg mx-1"></i></a>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    <% } else { %>
+                        <h1 class="text-center text-secondary mt-5"> No user in the database</h1>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include your footer file -->
+    <%- include('layout/footer') %>
+
+    <!-- Bootstrap JS and Popper.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"
+        integrity="sha512-L3hU3Ue3YvrTJGPnUcj2kpDl8l5H4LOoKlU08DJM97SxD5sR8zD0d8RY9QIMw3UOyAfK67d7z1XaI3K1TqQceA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+</html>
