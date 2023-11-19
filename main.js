@@ -24,7 +24,10 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log("Connected to the database"))
-  .catch((error) => console.error(error));
+  .catch((error) => {
+    console.error("Error connecting to the database:", error);
+    process.exit(1); // Exit the application if database connection fails
+  });
 
 // Set template engine
 app.set("view engine", "ejs");
@@ -38,14 +41,18 @@ app.get("/calculate-average", async (req, res) => {
   try {
     const User = require("./path/to/users.js"); // Replace with the actual path
     const users = await User.find();
-    users.forEach(async (user) => {
-      const average = user.noclass > 0 ? user.noclass / user.noclass : 0;
-      user.averageClasses = average;
-      await user.save();
-    });
+
+    // Calculate the total number of teachers and sum of classes
+    const totalTeachers = users.length;
+    const totalClasses = users.reduce((sum, user) => sum + user.noclass, 0);
+    const averageClasses = totalTeachers > 0 ? totalClasses / totalTeachers : 0;
+
+    // Update averageClasses for all users in a single query
+    await User.updateMany({}, { $set: { averageClasses: averageClasses } });
+
     res.redirect("/"); // Redirect to the home page or user listing page
   } catch (err) {
-    console.error(err);
+    console.error("Error in /calculate-average route:", err);
     res.status(500).send("Internal Server Error");
   }
 });

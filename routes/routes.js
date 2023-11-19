@@ -4,9 +4,6 @@ const User = require("../models/users");
 const multer = require("multer");
 const fs = require("fs");
 const mongoose = require("mongoose");
-const ObjectId = mongoose.Types.ObjectId;
-
-const app = express();
 
 // Configure multer for file upload the logic goes here for the file upload
 const storage = multer.diskStorage({
@@ -35,7 +32,7 @@ router.post("/add", upload, async (req, res) => {
     };
     res.redirect("/");
   } catch (err) {
-    console.error(err);
+    console.error("Error in /add route:", err);
     req.session.message = {
       type: "danger",
       message: "Failed to add user",
