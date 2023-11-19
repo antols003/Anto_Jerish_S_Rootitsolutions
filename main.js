@@ -18,16 +18,17 @@ app.use(
 );
 
 // Database connection
+// Database connection
 mongoose
   .connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("Connected to the database"))
-  .catch((error) => {
-    console.error("Error connecting to the database:", error);
-    process.exit(1); // Exit the application if database connection fails
-  });
+  .then(() => {
+    console.log("Connected to the database");
+    mongoose.set('strictQuery', false); // Set strictQuery to false
+  })
+  .catch((error) => console.error(error));
 
 // Set template engine
 app.set("view engine", "ejs");
