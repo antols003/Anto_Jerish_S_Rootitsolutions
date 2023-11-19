@@ -4,7 +4,7 @@ const User = require("../models/users");
 const multer = require("multer");
 const fs = require("fs");
 const mongoose = require("mongoose");
-
+const app = express()
 // Configure multer for file upload the logic goes here for the file upload
 const storage = multer.diskStorage({
   destination: "./uploads",
