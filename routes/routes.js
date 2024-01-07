@@ -167,29 +167,7 @@ router.get("/calculateAverage", async (req, res) => {
 });
 
 module.exports = router;
-// Calculate average classes route
-app.get("/calculate-average", async (req, res) => {
-  try {
-    const User = require("C:\\presidio\\models\\users.js"); // Corrected backslashes
- // Replace with the actual path
-    const users = await User.find();
-    
-    // Calculate the total number of teachers
-    const totalTeachers = users.length;
 
-    // Calculate average classes for each user
-    users.forEach(async (user) => {
-      const average = totalTeachers > 0 ? user.noclass / totalTeachers : 0;
-      user.averageClasses = average;
-      await user.save();
-    });
-
-    res.redirect("/"); // Redirect to the home page or user listing page
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal Server Error");
-  }
-});
 
 // Delete user route functionality goes here
 router.get("/delete/:id", (req, res) => {
