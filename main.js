@@ -44,7 +44,7 @@ app.use("/", routes);
 app.get("/calculate-average", async (req, res) => {
   try {
     const User = require("./path/to/users.js"); // Replace with the actual path
-    const users = await User.find().timeout(10000); // Add timeout here
+    const users = await User.find().timeout(); // Add timeout here
 
     // Calculate the total number of teachers and sum of classes
     const totalTeachers = users.length;
