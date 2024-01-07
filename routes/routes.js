@@ -126,7 +126,6 @@ router.post("/update/:id", upload, async (req, res) => {
     res.redirect("/");
   }
 });
-// ... (your existing routes)
 
 // Calculate average route
 router.get("/calculateAverage", async (req, res) => {
@@ -168,7 +167,6 @@ router.get("/calculateAverage", async (req, res) => {
 });
 
 module.exports = router;
-// Calculate average classes route
 // Calculate average classes route
 app.get("/calculate-average", async (req, res) => {
   try {

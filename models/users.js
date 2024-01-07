@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
   },
   averageClasses: {
     type: Number,
-    default: 0, // Initialize to 0
+    required: true, 
   },
 });
 
