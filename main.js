@@ -18,8 +18,7 @@ app.use(
   })
 );
 
-// Database connection
-// Database connection
+
 mongoose
   .connect(process.env.DB_URI, {
     useNewUrlParser: true,
