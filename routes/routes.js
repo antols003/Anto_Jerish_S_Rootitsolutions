@@ -128,10 +128,68 @@ router.post("/update/:id", upload, async (req, res) => {
 });
 
 // Calculate average route
+router.get("/calculateAverage", async (req, res) => {
+  try {
+    const client = new MongoClient('mongodb://your-mongodb-connection-string', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
 
+    await client.connect();
+    const database = client.db('your-database-name');
+    const usersCollection = database.collection('users');
+
+    const result = await usersCollection.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalClasses: { $sum: '$noclass' },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          averageClasses: { $divide: ['$totalClasses', '$count'] },
+        },
+      },
+    ]).toArray();
+
+    const averageClasses = result[0].averageClasses;
+
+    res.render('average', { averageClasses });
+  } catch (error) {
+    console.error('Error calculating average:', error);
+    res.status(500).send('Internal Server Error');
+  } finally {
+    client.close();
+  }
+});
 
 module.exports = router;
+// Calculate average classes route
+app.get("/calculate-average", async (req, res) => {
+  try {
+    const User = require("C:\\presidio\\models\\users.js"); // Corrected backslashes
+ // Replace with the actual path
+    const users = await User.find();
+    
+    // Calculate the total number of teachers
+    const totalTeachers = users.length;
 
+    // Calculate average classes for each user
+    users.forEach(async (user) => {
+      const average = totalTeachers > 0 ? user.noclass / totalTeachers : 0;
+      user.averageClasses = average;
+      await user.save();
+    });
+
+    res.redirect("/"); // Redirect to the home page or user listing page
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 // Delete user route functionality goes here
 router.get("/delete/:id", (req, res) => {

@@ -88,7 +88,7 @@
                                     <th>Age</th>
                                     <th>DOB</th>
                                     <th>Number of Classes</th>
-                                    
+                                    <th>Average Classes</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -101,7 +101,7 @@
                                         <td><%= row.age %></td>
                                         <td><%= row.dob %></td>
                                         <td><%= row.noclass %></td>
-                                        
+                                        <td><%= row.averageClasses.toFixed(2) %></td>
                                         <td class="action-icons">
                                             <a href="/edit/<%= row._id %>"><i class="fas fa-edit fa-lg mx-1"></i></a>
                                             <a href="/delete/<%= row._id %>"><i class="fas fa-trash fa-lg mx-1"></i></a>
